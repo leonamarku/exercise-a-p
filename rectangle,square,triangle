@@ -1,0 +1,68 @@
+from abc import ABC, abstractmethod
+import math
+
+class Figure(ABC):
+    def __init__(self):
+        self.area = None
+        self.perimeter = None
+
+    @abstractmethod
+    def calculate_area(self):
+        pass
+
+    @abstractmethod
+    def calculate_perimeter(self):
+        pass
+
+class Square(Figure):
+    def __init__(self, side_length):
+        super().__init__()
+        self.side_length = side_length
+
+    def calculate_area(self):
+        self.area = self.side_length ** 2
+
+    def calculate_perimeter(self):
+        self.perimeter = 4 * self.side_length
+
+class Circle(Figure):
+    def __init__(self, radius):
+        super().__init__()
+        self.radius = radius
+
+    def calculate_area(self):
+        self.area = math.pi * (self.radius ** 2)
+
+    def calculate_perimeter(self):
+        self.perimeter = 2 * math.pi * self.radius
+
+class Triangle(Figure):
+    def __init__(self, side1, side2, side3):
+        super().__init__()
+        self.side1 = side1
+        self.side2 = side2
+        self.side3 = side3
+
+    def calculate_area(self):
+        # Heron's formula to calculate the area of a triangle
+        s = (self.side1 + self.side2 + self.side3) / 2
+        self.area = math.sqrt(s * (s - self.side1) * (s - self.side2) * (s - self.side3))
+
+    def calculate_perimeter(self):
+        self.perimeter = self.side1 + self.side2 + self.side3
+
+# Example usage:
+square = Square(4)
+square.calculate_area()
+square.calculate_perimeter()
+print(f"Square - Area: {square.area}, Perimeter: {square.perimeter}")
+
+circle = Circle(3)
+circle.calculate_area()
+circle.calculate_perimeter()
+print(f"Circle - Area: {circle.area}, Circumference: {circle.perimeter}")
+
+triangle = Triangle(3, 4, 5)
+triangle.calculate_area()
+triangle.calculate_perimeter()
+print(f"Triangle - Area: {triangle.area}, Perimeter: {triangle.perimeter}")
